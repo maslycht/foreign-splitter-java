@@ -33,12 +33,6 @@
                         </form>
                     </td>
                 </tr>
-                <!--        FIXME: Fix or remove the totals row-->
-                <!--        <tr>-->
-                <!--            <td colspan="2">Total:</td>-->
-                <!--            <td th:text="${#numbers.formatDecimal(10, 1, 'COMMA', 2, 'POINT')}"></td>-->
-                <!--            <td></td>-->
-                <!--        </tr>-->
                 </tbody>
                 <tfoot>
                 <tr th:if="${localTotal != null and localTotal.compareTo(T(java.math.BigDecimal).ZERO) != 0}">
