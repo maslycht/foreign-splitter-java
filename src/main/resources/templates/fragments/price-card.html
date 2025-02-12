@@ -1,0 +1,45 @@
+<!-- @thymesVar id="exchangeRate" type="java.math.BigDecimal" -->
+<!-- @thymesVar id="foreignTotal" type="java.math.BigDecimal" -->
+<!-- @thymesVar id="localTotal" type="java.math.BigDecimal" -->
+
+<div th:fragment="priceCard">
+    <div class="card">
+        <h5 class="card-header bg-primary-subtle">Totals</h5>
+        <div class="card-body">
+            <div class="input-group mb-4">
+                <span class="input-group-text">Foreign total:</span>
+                <span class="form-control disabled" id="foreignTotal"
+                      th:text="${#numbers.formatDecimal(foreignTotal, 1, 'COMMA', 2, 'POINT')}"></span>
+            </div>
+
+            <form th:action="@{/setLocalTotal}" method="POST">
+                <div class="input-group mb-4">
+                    <span class="input-group-text">Local total:</span>
+                    <input aria-label="Local total"
+                           class="form-control"
+                           th:attr="autofocus=${localTotal == null ? 'autofocus' : null}"
+                           th:value="${#numbers.formatDecimal(localTotal, 1, 'COMMA', 2, 'POINT')}"
+                           type="number"
+                           min="0.01"
+                           step="0.01"
+                           id="localTotal"
+                           name="localTotal"
+                           placeholder="Local total..."
+                           required
+                    />
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-arrow-right-circle"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div class="input-group ">
+                <span class="input-group-text">Calculated exchange rate:</span>
+
+                <span class="form-control disabled" id="exchangeRate"
+                      th:text="${#numbers.formatDecimal(exchangeRate, 1, 'COMMA', 2, 'POINT')}"></span>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!-- @thymesVar id="newItem" type="dev.maslycht.foreignsplitter.model.Item" -->
+<!-- @thymesVar id="localTotal" type="java.math.BigDecimal" -->
+
+<div th:fragment="newItemForm">
+    <form th:action="@{/saveItem}" th:object="${newItem}" method="POST">
+        <div class="input-group w-50">
+            <input aria-label="New item name"
+                   class="form-control"
+                   th:attr="autofocus=${localTotal != null  ? 'autofocus' : null}"
+                   th:field="*{name}"
+                   type="text"
+                   id="name"
+                   name="name"
+                   placeholder="New item..."
+                   required
+            />
+            <input aria-label="New item foreign cost"
+                   class="form-control"
+                   th:field="*{foreignCost}"
+                   type="number"
+                   min="0.01"
+                   step="0.01"
+                   id="foreignCost"
+                   name="foreignCost"
+                   placeholder="Foreign cost..."
+                   required
+            />
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i>
+            </button>
+        </div>
+    </form>
+</div>

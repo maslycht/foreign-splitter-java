@@ -1,0 +1,51 @@
+<!-- @thymesVar id="items" type="java.util.List<dev.maslycht.foreignsplitter.model.Item>" -->
+<!-- @thymesVar id="item" type="dev.maslycht.foreignsplitter.model.Item" -->
+<!-- @thymesVar id="localTotal" type="java.math.BigDecimal" -->
+
+<div th:fragment="itemsCard">
+    <div class="card">
+        <h5 class="card-header bg-primary-subtle">Items</h5>
+        <div class="card-body">
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Foreign cost</th>
+                    <th>Local cost</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(items)}">
+                    <td colspan="4" class="text-center">No items</td>
+                </tr>
+                <tr th:each="item: ${items}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.foreignCost, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.localCost, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td>
+                        <form th:action="@{/deleteItem}" method="POST">
+                            <input type="hidden" name="itemId" th:value="${item.id}"/>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <!--        FIXME: Fix or remove the totals row-->
+                <!--        <tr>-->
+                <!--            <td colspan="2">Total:</td>-->
+                <!--            <td th:text="${#numbers.formatDecimal(10, 1, 'COMMA', 2, 'POINT')}"></td>-->
+                <!--            <td></td>-->
+                <!--        </tr>-->
+                </tbody>
+                <tfoot>
+                <tr th:if="${localTotal != null and localTotal.compareTo(T(java.math.BigDecimal).ZERO) != 0}">
+                    <td colspan="4">
+                        <div th:replace="~{fragments/new-item :: newItemForm}"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
