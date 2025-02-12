@@ -45,6 +45,8 @@ public class ForeignSplitterSession {
                 .orElseThrow(() -> new IllegalArgumentException("Item not found: " + itemId));
 
         foreignTotal = foreignTotal.subtract(item.getForeignCost());
+        item.getParticipants().forEach(participant -> participant.removeItem(item));
+
         recalculateExchangeRate();
         recalculateLocalCosts();
         recalculateParticipantLocalTotals();
