@@ -42,7 +42,17 @@ Or simply run it using Maven directly:
 
 ### 🐳 Dockerized
 
-[//]: # (TODO: Add Docker instructions)
+The app is [published](https://hub.docker.com/r/maslycht/foreign-splitter-java) in Docker Hub and can be run directly:
+
+```shell
+docker run -p 8080:8080 maslycht/foreign-splitter-java
+```
+
+To build the image locally, run:
+
+```shell
+./mvnw compile jib:dockerBuild
+```
 
 ## 🎥 Demo
 
