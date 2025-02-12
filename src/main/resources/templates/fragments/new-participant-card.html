@@ -1,0 +1,28 @@
+<!-- @thymesVar id="participant" type="dev.maslycht.foreignsplitter.model.Participant" -->
+<!-- @thymesVar id="items" type="java.util.List<dev.maslycht.foreignsplitter.model.Item>" -->
+<!-- @thymesVar id="item" type="dev.maslycht.foreignsplitter.model.Item" -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="newParticipantCard">
+    <div class="card">
+        <div class="card-header bg-primary-subtle">
+            <form th:action="@{/addParticipant}" method="POST">
+                <div class="input-group">
+                    <input aria-label="New participant name"
+                           class="form-control"
+                           type="text"
+                           id="name"
+                           name="name"
+                           placeholder="Participant's name..."
+                           required
+                    />
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

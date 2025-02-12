@@ -16,6 +16,7 @@
         <div th:each="participant: ${participants}">
             <div th:replace="~{fragments/participant-card :: participantCard(participant=${participant})}"></div>
         </div>
+        <div th:replace="~{fragments/new-participant-card :: newParticipantCard}"></div>
     </div>
 </div>
 </html>

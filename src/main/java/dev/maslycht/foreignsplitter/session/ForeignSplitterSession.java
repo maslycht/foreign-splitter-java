@@ -18,10 +18,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ForeignSplitterSession {
     private final List<Item> items = new ArrayList<>();
-    private final List<Participant> participants = new ArrayList<>(List.of(
-            new Participant("Alice"),
-            new Participant("Bob")
-    ));
+    private final List<Participant> participants = new ArrayList<>();
     private BigDecimal foreignTotal = BigDecimal.ZERO;
     private BigDecimal localTotal = null;
     private BigDecimal exchangeRate = BigDecimal.ONE;
@@ -35,6 +32,10 @@ public class ForeignSplitterSession {
         BigDecimal localCost = item.getForeignCost().multiply(exchangeRate);
         item.setLocalCost(localCost);
         items.add(item);
+    }
+
+    public void addParticipant(String name) {
+        participants.add(new Participant(name));
     }
 
     public void removeItem(String itemId) {
@@ -53,6 +54,7 @@ public class ForeignSplitterSession {
 
     public void setLocalTotal(BigDecimal localTotal) {
         this.localTotal = localTotal;
+
         recalculateExchangeRate();
         recalculateLocalCosts();
         recalculateParticipantLocalTotals();

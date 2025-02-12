@@ -18,7 +18,6 @@ public class Participant {
     private final Set<Item> items = new HashSet<>();
     private BigDecimal localTotal = BigDecimal.ZERO;
 
-    // TODO: Remove this constructor
     public Participant(String name) {
         this.name = name;
     }

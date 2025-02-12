@@ -86,4 +86,10 @@ public class ForeignSplitterController {
         session.setParticipantItems(participantId, itemIds);
         return "redirect:/";
     }
+
+    @PostMapping("/addParticipant")
+    public String addParticipant(@RequestParam("name") String name) {
+        session.addParticipant(name);
+        return "redirect:/";
+    }
 }
