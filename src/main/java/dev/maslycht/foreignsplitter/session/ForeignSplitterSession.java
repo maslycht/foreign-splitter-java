@@ -87,16 +87,15 @@ public class ForeignSplitterSession {
             return;
         }
 
-        Set<Item> itemsToAdd = selectedItems.stream()
-                .filter(item -> !participant.getItems().contains(item))
-                .collect(Collectors.toSet());
+        Set<Item> currentItems = Set.copyOf(participant.getItems());
 
-        Set<Item> itemsToRemove = participant.getItems().stream()
-                .filter(item -> !selectedItems.contains(item))
-                .collect(Collectors.toSet());
+        selectedItems.stream()
+                .filter(selectedItem -> !currentItems.contains(selectedItem))
+                .forEach(participant::addItem);
 
-        itemsToAdd.forEach(participant::addItem);
-        itemsToRemove.forEach(participant::removeItem);
+        currentItems.stream()
+                .filter(selectedItem -> !selectedItems.contains(selectedItem))
+                .forEach(participant::removeItem);
 
         recalculateParticipantLocalTotals();
     }
