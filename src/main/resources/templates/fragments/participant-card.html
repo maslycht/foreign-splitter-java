@@ -11,6 +11,7 @@
             <span th:text="${#numbers.formatDecimal(participant.localTotal, 1, 'COMMA', 2, 'POINT')}"></span>
         </div>
         <div class="card-body">
+            <p th:if="${#lists.isEmpty(items)}" class="text-secondary">No items. Add above.</p>
             <form th:action="@{/setParticipantItems}" method="POST">
                 <div class="row row-cols-2">
                     <input type="hidden" name="participantId" th:value="${participant.id}"/>
@@ -34,6 +35,14 @@
                         </label>
                     </div>
                 </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <form th:action="@{/removeParticipant}" method="POST">
+                <input type="hidden" th:value="${participant.id}" name="participantId"/>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i>
+                </button>
             </form>
         </div>
     </div>

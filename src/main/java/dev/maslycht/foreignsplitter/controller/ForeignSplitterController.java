@@ -92,4 +92,10 @@ public class ForeignSplitterController {
         session.addParticipant(name);
         return "redirect:/";
     }
+
+    @PostMapping("/removeParticipant")
+    public String removeParticipant(@RequestParam("participantId") String participantId) {
+        session.removeParticipant(participantId);
+        return "redirect:/";
+    }
 }

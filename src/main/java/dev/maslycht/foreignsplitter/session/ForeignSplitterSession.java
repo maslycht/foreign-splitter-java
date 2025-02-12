@@ -77,10 +77,7 @@ public class ForeignSplitterSession {
     }
 
     public void setParticipantItems(String participantId, List<String> itemIds) {
-        Participant participant = participants.stream()
-                .filter(p -> p.getId().equals(participantId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Participant not found: " + participantId));
+        Participant participant = getParticipantById(participantId);
 
         Set<Item> selectedItems = items.stream()
                 .filter(item -> itemIds.contains(item.getId()))
@@ -104,11 +101,25 @@ public class ForeignSplitterSession {
         recalculateParticipantLocalTotals();
     }
 
+    private Participant getParticipantById(String participantId) {
+        return participants.stream()
+                .filter(p -> p.getId().equals(participantId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Participant not found: " + participantId));
+    }
+
     private void recalculateParticipantLocalTotals() {
         participants.forEach(Participant::recalculateLocalTotal);
     }
 
     public boolean allItemsAreAssigned() {
         return items.stream().noneMatch(item -> item.getParticipants().isEmpty());
+    }
+
+    public void removeParticipant(String participantId) {
+        Participant participant = getParticipantById(participantId);
+        participant.removeAllItems();
+        participants.remove(participant);
+        recalculateParticipantLocalTotals();
     }
 }

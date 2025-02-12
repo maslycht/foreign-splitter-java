@@ -34,6 +34,12 @@ public class Participant {
         item.getParticipants().remove(this);
     }
 
+    public void removeAllItems() {
+        localTotal = BigDecimal.ZERO;
+        items.forEach(this::removeItem);
+        items.clear();
+    }
+
     public void recalculateLocalTotal() {
         localTotal = items.stream()
                 .map(Item::getSplitLocalCost)

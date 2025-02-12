@@ -20,7 +20,7 @@
                     <input aria-label="Local total"
                            class="form-control"
                            th:attr="autofocus=${localTotal == null ? 'autofocus' : null}"
-                           th:value="${#numbers.formatDecimal(localTotal, 1, 'COMMA', 2, 'POINT')}"
+                           th:value="${localTotal}"
                            type="number"
                            min="0.01"
                            step="0.01"
