@@ -98,4 +98,10 @@ public class ForeignSplitterController {
         session.removeParticipant(participantId);
         return "redirect:/";
     }
+
+    @PostMapping("/reset")
+    public String reset() {
+        session.reset();
+        return "redirect:/";
+    }
 }

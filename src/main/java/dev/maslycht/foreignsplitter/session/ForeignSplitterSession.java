@@ -121,4 +121,12 @@ public class ForeignSplitterSession {
         participants.remove(participant);
         recalculateParticipantLocalTotals();
     }
+
+    public void reset() {
+        items.clear();
+        participants.clear();
+        foreignTotal = BigDecimal.ZERO;
+        localTotal = null;
+        exchangeRate = BigDecimal.ONE;
+    }
 }
