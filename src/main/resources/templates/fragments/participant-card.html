@@ -1,0 +1,39 @@
+<!-- @thymesVar id="participant" type="dev.maslycht.foreignsplitter.model.Participant" -->
+<!-- @thymesVar id="items" type="java.util.List<dev.maslycht.foreignsplitter.model.Item>" -->
+<!-- @thymesVar id="item" type="dev.maslycht.foreignsplitter.model.Item" -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="participantCard(participant)">
+    <div class="card">
+        <div class="card-header bg-primary-subtle d-flex justify-content-between">
+            <h5 class="mb-0" th:text="${participant.name}"></h5>
+            <span th:text="${#numbers.formatDecimal(participant.localTotal, 1, 'COMMA', 2, 'POINT')}"></span>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/setParticipantItems}" method="POST">
+                <input type="hidden" name="participantId" th:value="${participant.id}"/>
+                <div class="form-check" th:each="item: ${items}">
+                    <input aria-label="Add item to participant"
+                           class="form-check-input"
+                           th:id="'item-' + ${item.id}"
+                           th:value="${item.id}"
+                           th:checked="${participant.items.contains(item)}"
+                           type="checkbox"
+                           name="itemIds"
+                           onchange="this.form.submit()"
+                    />
+                    <label class="form-check-label"
+                           th:for="'item-' + ${item.id}"
+                           th:text="${item.name}
+                           + (${participant.items.contains(item)}
+                           ? ' (' + ${#numbers.formatDecimal(item.splitLocalCost, 1, 'COMMA', 2, 'POINT')} + ')'
+                           : '')"
+                           th:attr="for=${item.id}">
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

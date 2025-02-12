@@ -1,0 +1,21 @@
+<!-- @thymesVar id="allItemsAssigned" type="java.lang.Boolean" -->
+<!-- @thymesVar id="participants" type="java.util.List<dev.maslycht.foreignsplitter.model.Participant>" -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="participantsSection">
+    <div class="d-flex justify-content-start align-content-end mb-2">
+        <h2 class="display-6 me-4">Participants</h2>
+        <h2>
+            <i th:if="${!allItemsAssigned}" class=" display-6 bi bi-exclamation-triangle text-warning"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="There are unassigned items"></i>
+            </i>
+        </h2>
+    </div>
+    <div class="row row-cols-4 mb-4">
+        <div th:each="participant: ${participants}">
+            <div th:replace="~{fragments/participant-card :: participantCard(participant=${participant})}"></div>
+        </div>
+    </div>
+</div>
+</html>

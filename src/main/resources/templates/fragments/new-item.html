@@ -1,6 +1,8 @@
 <!-- @thymesVar id="newItem" type="dev.maslycht.foreignsplitter.model.Item" -->
 <!-- @thymesVar id="localTotal" type="java.math.BigDecimal" -->
 
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="newItemForm">
     <form th:action="@{/saveItem}" th:object="${newItem}" method="POST">
         <div class="input-group w-50">
@@ -31,3 +33,4 @@
         </div>
     </form>
 </div>
+</html>

@@ -1,6 +1,7 @@
 package dev.maslycht.foreignsplitter.controller;
 
 import dev.maslycht.foreignsplitter.model.Item;
+import dev.maslycht.foreignsplitter.model.Participant;
 import dev.maslycht.foreignsplitter.session.ForeignSplitterSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,11 @@ public class ForeignSplitterController {
         return session.getItems();
     }
 
+    @ModelAttribute("participants")
+    public List<Participant> participants() {
+        return session.getParticipants();
+    }
+
     @ModelAttribute("exchangeRate")
     public BigDecimal exchangeRate() {
         return session.getExchangeRate().setScale(2, RoundingMode.HALF_UP);
@@ -39,6 +45,11 @@ public class ForeignSplitterController {
         BigDecimal localTotal = session.getLocalTotal();
         if (localTotal == null) return null;
         return localTotal.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    @ModelAttribute("allItemsAssigned")
+    public boolean allItemsAssigned() {
+        return session.allItemsAreAssigned();
     }
 
     @GetMapping
@@ -62,6 +73,17 @@ public class ForeignSplitterController {
     @PostMapping("/setLocalTotal")
     public String setLocalTotal(@RequestParam("localTotal") float localTotal) {
         session.setLocalTotal(BigDecimal.valueOf(localTotal));
+        return "redirect:/";
+    }
+
+    @PostMapping("/setParticipantItems")
+    public String setParticipantItems(
+            @RequestParam("participantId") String participantId,
+            @RequestParam(value = "itemIds", required = false) List<String> itemIds
+    ) {
+        if (itemIds == null) itemIds = List.of();
+
+        session.setParticipantItems(participantId, itemIds);
         return "redirect:/";
     }
 }
