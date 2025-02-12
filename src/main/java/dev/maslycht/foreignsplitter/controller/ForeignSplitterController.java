@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Controller
@@ -25,17 +26,19 @@ public class ForeignSplitterController {
 
     @ModelAttribute("exchangeRate")
     public BigDecimal exchangeRate() {
-        return session.getExchangeRate();
+        return session.getExchangeRate().setScale(2, RoundingMode.HALF_UP);
     }
 
     @ModelAttribute("foreignTotal")
     public BigDecimal foreignTotal() {
-        return session.getForeignTotal();
+        return session.getForeignTotal().setScale(2, RoundingMode.HALF_UP);
     }
 
     @ModelAttribute("localTotal")
     public BigDecimal localTotal() {
-        return session.getLocalTotal();
+        BigDecimal localTotal = session.getLocalTotal();
+        if (localTotal == null) return null;
+        return localTotal.setScale(2, RoundingMode.HALF_UP);
     }
 
     @GetMapping
