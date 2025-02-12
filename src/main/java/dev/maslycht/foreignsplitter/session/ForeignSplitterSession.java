@@ -63,7 +63,7 @@ public class ForeignSplitterSession {
     }
 
     private void recalculateExchangeRate() {
-        if (foreignTotal.equals(BigDecimal.ZERO) || localTotal.equals(BigDecimal.ZERO)) {
+        if (foreignTotal.compareTo(BigDecimal.ZERO) == 0 || localTotal.compareTo(BigDecimal.ZERO) == 0) {
             exchangeRate = BigDecimal.ONE;
             return;
         }

@@ -35,9 +35,7 @@ public class Participant {
     }
 
     public void removeAllItems() {
-        localTotal = BigDecimal.ZERO;
-        items.forEach(this::removeItem);
-        items.clear();
+        Set.copyOf(items).forEach(this::removeItem);
     }
 
     public void recalculateLocalTotal() {

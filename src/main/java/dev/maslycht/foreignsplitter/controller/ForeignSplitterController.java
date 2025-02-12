@@ -72,7 +72,7 @@ public class ForeignSplitterController {
 
     @PostMapping("/setLocalTotal")
     public String setLocalTotal(@RequestParam("localTotal") float localTotal) {
-        session.setLocalTotal(BigDecimal.valueOf(localTotal));
+        session.setLocalTotal(BigDecimal.valueOf(localTotal).setScale(2, RoundingMode.HALF_UP));
         return "redirect:/";
     }
 
