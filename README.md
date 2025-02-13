@@ -1,4 +1,4 @@
-# 🧮 Foreign Splitter
+# 🧮 Foreign Bill Splitter
 
 
 Foreign Splitter is a **Spring Boot / Thymeleaf** app that helps you split expenses in foreign currencies among multiple
